@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+  <title>NotesApp</title>  </head>
+ <body>
+ <div id="app"></div>
+ <script> 
+ const app = document.getElementById("app"); 
+const notes=[];
+let isAddingNote = false;
+let counts=65
+
+function saveNote(){
+ const title1 = document.getElementById("title_").value.trim();
+
+ const content = document.getElementById("content_").value.trim();
+
+if(title1!==" "&&content!== " " ) {notes.push({title1 : title1,content : content,});cancel()}}
+
+function cancel(){
+isAddingNote = true;
+
+ build(); 
+}
+
+function cancel(){
+isAddingNote = false;
+
+ build(); 
+}
+
+function build() {if(!isAddingNote) {
+
+
+
+
+const note=notes.map((note,index)=> `
+<div class="card" style="  border: 2px solid #020303;
+ " >
+<div style=" padding :16px " >
+<h2>${note.title1}</h2>
+<h4>${note.content}</h4>
+
+<div style=" justify-content : spaceEvenly" > 
+</div>
+
+
+</div>
+
+</div>
+`)
+ .join("");
+
+
+
+ app.innerHTML = ` <div><p style = "  font-size:25.0px ; font-weight : bold"  >My_Notes</p>
+</div>
+
+<div>
+  ${note}
+
+<div style=" padding :16px " >
+<button style=" background-color:deepskyblue; padding:8px; color:white;border:none;border-radius: 5px " onclick="addNote()">AddNote</button>
+
+</div>
+</div> `
+
+
+
+ } else {
+
+ app.innerHTML = ` <div  > 
+<div style=" padding :7px " >
+<input type="text" id="title_" placeholder= "Title"style=" margin-bottom:5px "> 
+ <br>
+
+</div>
+
+<div style=" padding :7px " >
+<input type="text" id="content_" placeholder= "Content"style=" margin-bottom:5px "> 
+ <br>
+
+</div>
+
+<div style=" justify-content : spaceEvenly" > 
+<div style=" padding :5px " >
+<button style=" background-color:deepskyblue; padding:8px; color:white;border:none;border-radius: 5px " onclick="saveNote()">SaveNote</button>
+
+</div>
+
+<div style=" padding :5px " >
+<button style=" background-color:deepskyblue; padding:8px; color:white;border:none;border-radius: 5px " onclick="cancel()">Cancel</button>
+
+</div>
+
+</div>
+
+</div> `
+
+
+}}  
+ build();
+
+</script>
+   </body>
+ </html>

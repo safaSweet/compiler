@@ -1,0 +1,186 @@
+
+void main() {
+  runApp(const NotesApp());
+}
+
+class NotesApp extends StatefulWidget {
+  const NotesApp({super .key});
+
+  @override
+ NotesAppState createState() { NotesAppState();}
+
+}
+
+class NotesAppState extends State<NotesApp> {
+  List<Map<String, String>> notes = [];
+  bool isAddingNote = false;
+int counts=65;
+
+
+  TextEditingController title_ = TextEditingController();
+  TextEditingController content_ = TextEditingController();
+
+
+  void saveNote(BuildContext context) {
+
+    String title1= title_ . text;
+    String content= content_ . text;
+    if (title1 .isNotEmpty && content .isNotEmpty) {
+      notes .add({'title1': title1 , 'content': content});
+      cancel();
+    }
+  }
+  void addNote() {
+    setState(() {
+      isAddingNote = true;
+    });
+  }
+
+
+  void cancel() {
+    setState(() {
+      isAddingNote = false;
+      titleController .clear();
+      contentController .clear();
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp (
+      debugShowCheckedModeBanner : false,
+    title1 : 'NotesApp' ,
+      home : Scaffold(
+       backgroundColor : Color.fromRGBO(245, 245, 245,0),
+        body : !isAddingNote ? SingleChildScrollView(
+
+                  child : Column(
+                    crossAxisAlignment : CrossAxisAlignment .start,
+                    children : [
+
+                      ConstrainedBox(
+                        constraints :  BoxConstraints(
+                          minHeight : 0,
+                        ),
+                        child : ListView .builder(
+                          shrinkWrap : true,
+                          physics :  NeverScrollableScrollPhysics(),
+                          itemCount : F .length,
+                          itemBuilder : (context, index) {
+                            String note = notes[index];
+                            return Card(
+                              child :  Container(
+                                                        clipBehavior : Clip .none,
+                                                        padding :  EdgeInsets .all(16),
+                         child :     ListTile(
+                                title : Text(note[' title1 '] ?? "
+                                " ),
+                                subtitle : Text(note[' content '] ?? "
+                                 "),
+                                trailing :
+Row(mainAxisAlignment : MainAxisAlignment .spaceEvenly, children : [
+                                      ]),
+
+                              ),),
+                            ),
+                          }
+                        ),
+                      ),
+
+ Padding(
+                        padding : EdgeInsets .only(bottom : 8),
+                        child : Text(
+                          'My_Notes',
+                          style : TextStyle(
+                            fontSize : 25,
+                            fontWeight : FontWeight .bold,
+                          ),
+                        ),
+                      ),
+                       Padding(
+                                              padding :  EdgeInsets .only(top : 6),
+                                child :              Container(
+                                              clipBehavior : Clip .none,
+                                               padding :  EdgeInsets .all(16),
+                                              child : ElevatedButton(
+                                                onPressed :()=> addNote(),
+                                                child :  Text('AddNote'),
+                                              ),),
+                                            ),
+                    ])
+                    ),
+            : Container(
+
+ padding :  EdgeInsets .all(16),
+                child : Column(
+
+                  children : [
+ Container(
+clipBehavior : Clip .none,
+ padding :  EdgeInsets .all(7), child :
+                  TextField(
+                      controller : title_,
+                      decoration :  InputDecoration(
+                        hintText : 'Title',
+                        border : OutlineInputBorder(),
+                        enabledBorder : OutlineInputBorder(
+                          borderSide : BorderSide(color : Color.fromRGBO(2,3,3,3))
+                        ),
+                        filled : true,
+                        fillColor : Color.fromRGBO(2,3,3,3),
+                        focusColor : Color.fromRGBO(2,3,3,3),
+                        hoverColor : Color.fromRGBO(2,3,3,3),
+
+                    ),
+                  ),
+                    SizedBox(height : 8),  ),
+
+                    Container(
+                    clipBehavior : Clip .none,
+                     padding :  EdgeInsets .all(7), child :
+                    TextField(
+                      controller : content_,
+                      decoration :  InputDecoration(
+                        hintText : 'Content',
+                        border : OutlineInputBorder(),
+                        enabledBorder : OutlineInputBorder(
+                          borderSide : BorderSide(color : Color.fromRGBO(2,3,3,3)),
+                        ),
+                       filled : true,
+                        fillColor : Color.fromRGBO(2,3,3,3),
+                        focusColor : Color.fromRGBO(2,3,3,3),
+                        hoverColor : Color.fromRGBO(2,3,3,3),
+                      ),
+                      maxLines : null,
+                    ),
+                   SizedBox(height : 16),),
+                    Row(
+                      mainAxisAlignment : MainAxisAlignment .spaceEvenly,
+                      children : [
+                      Container(
+                      clipBehavior : Clip .none,
+                       padding :  EdgeInsets .all(5), child :
+                      ElevatedButton(
+                          onPressed : () => saveNote(context),
+                          child :  Text('SaveNote'),
+                        ),),
+                        Container(
+                        clipBehavior : Clip .none,
+                         padding :  EdgeInsets .all(5), child :
+                        ElevatedButton(
+                          onPressed :()=> cancel(),
+                          child :  Text('Cancel'),
+                        ), ),
+                      ],
+                    ),
+
+
+
+                  ],),
+
+              ),
+
+    );
+  }
+}
